@@ -1,0 +1,57 @@
+---
+title: "Final Project"
+author: "meron"
+date: "4/19/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+#Question to be anaswered
+
+library(tidyverse)
+library(ggplot2)
+
+#Is my daily average social media usage greater than 60 mins? Use a 0.05 significance level to test the claim that my mean daily social media usage is greater than 60 mins. 
+
+#Null and Alternative Hypothesis:
+ # Ho: mu = 60  Ha: mu > 60
+#Null hypothesis is that my daily average sm usage is equal to 60. Alternative Hypothesis is that my daily average sm usage is greater than 60 mins.
+
+```
+
+```{r}
+
+ggplot(data= Project_Analysis_Table, aes(x=Date, y=SMU))+geom_point(color = "Red")+labs(x="Date",y="Social Media Usage (in mins)", title="Social Media Usage over a 2 Week Period")+scale_x_discrete(labels=c("Mon-3/28","Tue-3/29","Wed-3/30","Thur-3/31","Fri-4/1","Sat-4/2","Sun-4/3","Mon-4/4","Tue-4/5","Wed-4/6","Thu-4/7","Fri-4/8","Sat-4/9","Sun-4/10"))+geom_smooth(method= "lm", se=FALSE)+theme(axis.text.x=element_text(angle=90))
+
+```
+
+```{r}
+t.test(Project_Analysis_Table$SMU, mu=60, alternative = "greater")
+
+#t.stat =0.55    p.value=0.30
+
+#we fail to reject the H0. There's no evidence to support the claim that my daily sm usage is greater than 60 mins.
+
+
+```
+
+```{r}
+
+library(tidyverse)
+library(ggplot2)
+
+Project_Analysis_Table %>%
+  mutate(timeOfWk=ifelse(Date%in%c("Mon - 3/28","Tue - 3/29","Wed - 3/30","Thur - 3/31","Fri - 4/1","Mon - 4/4","Tue - 4/5","Wed - 4/6","Thur - 4/7","Fri - 4/8"), "weekday","weekend")) %>%
+  group_by(timeOfWk)%>%
+  summarize(ave_SMU = mean(SMU), seSMU= sd(SMU)/sqrt(length(SMU)), tstar = qt(1 -0.05/2, length(SMU)-1)) %>%
+  ggplot(aes(x=timeOfWk, y=ave_SMU))+geom_point()+geom_errorbar(aes(ymin=ave_SMU - seSMU*tstar, ymax=ave_SMU + seSMU*tstar)) + ylim(c(0,300))
+
+
+```
+
+
