@@ -6,7 +6,7 @@ The goal of this project is to apply visualization skills and analysis skills in
 Data Visualizations and Analysis
 R Programming
 ### Skills practiced 
-- Bullet  Presentation skills 
-- Bullet  Visualization skills
-- Bullet  Analysis skills
+- Presentation skills 
+- Visualization skills
+- Analysis skills
 For this project, I collected my social media usage screen time to apply some of the visualizations and analysis skills we learned for this class.
