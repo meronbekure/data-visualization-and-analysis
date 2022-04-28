@@ -9,4 +9,5 @@ R Programming
 - Presentation skills 
 - Visualization skills
 - Analysis skills
+
 For this project, I collected my social media usage screen time to apply some of the visualizations and analysis skills we learned for this class.
